@@ -1,0 +1,27 @@
+DELIMITER $$
+CREATE DEFINER=`JoseA`@`%` PROCEDURE `insertHistorico`(IN `vid_club` INT, IN `vid_futbolista` INT, IN `vtemporada` INT)
+    NO SQL
+BEGIN
+INSERT INTO Historico1
+(id_club, id_futbolista, temporada)
+VALUES
+(vid_club, vid_futbolista, vtemporada);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`JoseA`@`%` PROCEDURE `updateHistorico`(IN `vid_club` INT, IN `vid_futbolista` INT, IN `vtemporada` INT)
+    NO SQL
+BEGIN
+UPDATE Historico1 SET temporada = vtemporada WHERE id_club = vid_club and id_futbolista = vid_futbolista;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`JoseA`@`%` PROCEDURE `deleteHistorico`(IN `vid_club` INT, IN `vid_futbolista` INT, IN `vtemporada` INT)
+    NO SQL
+BEGIN
+DELETE FROM Historico1 WHERE id_club = vid_club AND id_futbolista = vid_futbolista AND temporada = vtemporada;
+END$$
+DELIMITER ;
