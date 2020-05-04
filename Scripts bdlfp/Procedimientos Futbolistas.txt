@@ -1,0 +1,30 @@
+DELIMITER $$
+CREATE DEFINER=`JoseA`@`%` PROCEDURE `insertFutbolista`(IN `vid_fubtolista` INT, IN `vnif` INT, IN `vnombre` VARCHAR(60), IN `vapellidos` VARCHAR(60), IN `vfecha_nacimiento` DATE, IN `vnacionalidad` VARCHAR(60))
+    NO SQL
+BEGIN
+INSERT INTO Futbolistas
+(id_futbolista, nif, nombre, apellidos, fecha_nacimiento, nacionalidad) 
+VALUES
+(vid_fubtolista, vnif, vnombre, vapellidos, vfecha_nacimiento, vnacionalidad);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`JoseA`@`%` PROCEDURE `updateFutbolista`(IN `vid_futbolista` INT, IN `vnif` INT, IN `vnombre` VARCHAR(60), IN `vapellido` VARCHAR(60), IN `vfecha_nacimiento` DATE, IN `vnacionalidad` INT)
+    NO SQL
+BEGIN
+UPDATE Futbolistas SET nif = vnif, nombre = vnombre,
+apellidos = vapellidos, fecha_nacimiento = fecha_nacimiento, nacionalidad = vnacionalidad WHERE id_futbolista = vid_futbolista;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`JoseA`@`%` PROCEDURE `deleteFutbolista`(IN `vfutbolista` INT)
+    NO SQL
+BEGIN 
+DELETE FROM Futbolistas WHERE id_futbolista = vfutbolista;
+END$$
+DELIMITER ;
+
+

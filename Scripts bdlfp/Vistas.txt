@@ -1,0 +1,15 @@
+CREATE VIEW AllClubs
+ AS SELECT *
+ FROM Clubs
+
+CREATE VIEW AllFutbolistas
+ AS SELECT id_jugadores, nif, nombre, apellido, fecha_nacimiento, nacionalidad, campaña
+ FROM Futbolistas F JOIN Historicos H
+ WHERE F.id_equipo = H.id_equipo
+
+(meterle el nombre del equipo)
+
+
+
+Consulta para sacar los datos de los jugadores
+SELECT Futbolistas.nombre, Clubs.nombre FROM Historico1 JOIN Clubs ON Historico1.id_club = Clubs.id_club JOIN Futbolistas ON Futbolistas.id_futbolista = Historico1.id_futbolista

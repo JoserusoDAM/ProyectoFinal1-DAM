@@ -1,0 +1,30 @@
+Proyecto 3
+Contexto del programa
+El Granada C.F. pretende desarrollar una aplicación que permita almacenar y gestionar
+en una base de datos con información acerca de los futbolistas que han militado en el
+club a lo largo de su historia. La idea gusta mucho en la Liga de Fútbol Profesional, y
+deciden hacerla extensiva al resto de clubes de primera y segunda división. De esta
+forma tendremos que para cada futbolista se almacenaría la siguiente información: su
+nombre y apellido, su año de nacimiento, su nacionalidad y su NIF. De cada club de
+fútbol se guardaría su nombre oficial, el año de creación y el nombre de su estadio.
+Además, se almacenaría información de qué futbolistas militaron en que clubes en las
+diferentes campañas ligueras.
+NOTA: Para simplificar, supondremos que un futbolista dado sólo puede militar en
+un club a lo largo de una temporada.
+
+Funcionalidades requeridas
+Se debe diseñar una aplicación Java con una interfaz gráfica de usuario que
+permita:
+1. Introducir datos de futbolistas.
+2. Introducir datos de clubes de fútbol.
+3. Modificar datos de futbolistas y clubes.
+4. Asociar futbolistas a clubes (un futbolista puede estar asociado a varios
+clubes si ha militado en varios).
+5. Obtener la lista de futbolistas asociados a un club.
+6. Obtener la lista de clubes en los que ha militado un futbolista.
+7. Listar todos los clubes.
+8. Listar todos los futbolistas.
+En cada caso, se consideraría la forma adecuada de interaccionar con el usuario; por
+ejemplo, evitando que haya que escribir el nombre completo de un club para poder ver
+los futbolistas que han militado en él, evitando que haya tablas editables cuya
+actualización no se refleja en la base de datos, etc.
