@@ -41,11 +41,6 @@ public class Portada extends javax.swing.JFrame {
 
         btnEntrar.setFont(new java.awt.Font("Candara Light", 1, 16)); // NOI18N
         btnEntrar.setText("Entrar");
-        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEntrarActionPerformed(evt);
-            }
-        });
 
         labelTitulo1.setFont(new java.awt.Font("Candara Light", 1, 18)); // NOI18N
         labelTitulo1.setText("Bienvenido a la Base de datos de la");
@@ -106,17 +101,7 @@ public class Portada extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        Panel_principal p = new Panel_principal();
-        p.setVisible(true);
-        this.dispose(); 
-    }//GEN-LAST:event_btnEntrarActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    
-    
+   
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -153,7 +138,7 @@ public class Portada extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEntrar;
+    public javax.swing.JButton btnEntrar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelTitulo1;
     private javax.swing.JLabel labelTitulo2;

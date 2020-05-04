@@ -1,6 +1,8 @@
 package Controlador;
 
+
 import Vista.Portada;
+import Vista.Ventanaprincipal;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -18,14 +20,8 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Portada().setVisible(true);
-            }
-        });
-        
+                
+        new Controlador_ventanaprincipal(new Portada(), new Ventanaprincipal()).iniciar();
         
     }
     

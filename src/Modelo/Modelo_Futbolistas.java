@@ -39,11 +39,11 @@ public class Modelo_Futbolistas {
             ResultSet res = pstm.executeQuery();
             int i = 0;
             while (res.next()) {
-                data[i][0] = res.getInt("id_futbolista");
+                data[i][0] = res.getString("id_futbolista");
                 data[i][1] = res.getString("nif");
                 data[i][2] = res.getString("nombre");
                 data[i][3] = res.getString("apellidos");
-                data[i][4] = res.getDate("fecha_nacimiento");
+                data[i][4] = res.getString("fecha_nacimiento");
                 data[i][5] = res.getString("nacionalidad");
                 i++;
             }
@@ -66,9 +66,9 @@ public class Modelo_Futbolistas {
      * @param nacionalidad
      * @return true/false
      */
-    public boolean NuevoFutbolista(String nif, String nombre, String apellidos, LocalDate fecha_nacimiento, String nacionalidad) {
+    public boolean NuevoFutbolista(int id, String nif, String nombre, String apellidos, LocalDate fecha_nacimiento, String nacionalidad) {
         try {
-            CallableStatement call = Modelo_Club.getConnection().prepareCall("{call insertClub (?,?,?,?}");
+            CallableStatement call = Modelo_Club.getConnection().prepareCall("{call insertClub (?,?,?,?,?}");
             call.execute();
             call.close();
             return true;
@@ -84,7 +84,7 @@ public class Modelo_Futbolistas {
      * @param id_futbolista
      * @return true/false
      */
-    public boolean EliminarClub(String id_futbolista) {
+    public boolean EliminarFutbolista(String id_futbolista) {
         try {
             CallableStatement call = Modelo_Club.getConnection().prepareCall("{call deleteFutbolista (?}");
             call.execute();

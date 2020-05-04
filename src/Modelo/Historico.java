@@ -9,18 +9,6 @@ public class Historico {
     private int id_club;
     private int id_futbolista;
     private int temporada;
-
-    /**
-     * Constructor parametrizado
-     * @param id_club
-     * @param id_futbolista
-     * @param temporada 
-     */
-    public Historico(int id_club, int id_futbolista, int temporada) {
-        this.id_club = id_club;
-        this.id_futbolista = id_futbolista;
-        this.temporada = temporada;
-    }
     
     /**
      * Constructor parametrizado

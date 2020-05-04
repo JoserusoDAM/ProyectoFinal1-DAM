@@ -19,8 +19,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Controlador_Club implements ActionListener, MouseListener {
 
-    TodosClubs club;
-    FiltraClub fclub;
+    public TodosClubs club;
+    public FiltraClub fclub;
     Modelo_Club mclub = new Modelo_Club();
 
     public Controlador_Club(TodosClubs club) {
@@ -34,6 +34,7 @@ public class Controlador_Club implements ActionListener, MouseListener {
         __MODIFICAR_CLUB,
         __VOLVER,
         __BUSCADOR,
+        __LIMPIAR,
         __CREAR_PDF,
     }
 
@@ -68,12 +69,18 @@ public class Controlador_Club implements ActionListener, MouseListener {
         this.club.btnBuscar.setActionCommand("__BUSCADOR");
         this.club.btnBuscar.addActionListener(this);
         //declara una acción y añade un escucha al evento producido por el componente
+        this.club.btnLimpiar.setActionCommand("__LIMPIAR");
+        this.club.btnLimpiar.addActionListener(this);
+        //declara una acción y añade un escucha al evento producido por el componente
         this.club.btnPdf.setActionCommand("__CREAR_PDF");
         this.club.btnPdf.addActionListener(this);
         //declara una acción y añade un escucha al evento producido por el componente
         this.club.tablaClub.addMouseListener(this);
         this.club.tablaClub.setModel(new DefaultTableModel());
-
+        //ponemos el panel centrado
+        this.club.setLocationRelativeTo(null);
+        //bloqueamos en campo id para que no se pueda rellenar
+        this.club.txtId.setEnabled(false);    
     }
 
     @Override
@@ -86,39 +93,81 @@ public class Controlador_Club implements ActionListener, MouseListener {
                 break;
             case __NUEVO_CLUB:
                 //añade un nuevo registro
-                if (this.mclub.NuevoClub(
-                        this.club.txtNombre.getText(), 
-                        (int) this.club.txtFecha.getValue(),
-                        this.club.txtCampo.getText())) {
-                    this.club.tablaClub.setModel(this.mclub.getTablaClub());
-                    JOptionPane.showMessageDialog(club, "Exito: Nuevo registro agregado.");
-                    this.club.txtId.setText("");
-                    this.club.txtNombre.setText("");
-                    this.club.txtFecha.setText("");
-                    this.club.txtCampo.setText("");
-                } else //ocurrio un error
-                {
-                    JOptionPane.showMessageDialog(club, "Error: Los datos son incorrectos.");
+                if (
+                        this.club.txtNombre.getText().length() == 0
+                        || this.club.txtFecha.getText().length() == 0
+                        || this.club.txtCampo.getText().length() == 0) {
+                    JOptionPane.showMessageDialog(club, "Error: Campos vacios.");
+                } else {
+                    if (this.mclub.NuevoClub(
+                            this.club.txtNombre.getText(),
+                            Integer.parseInt(this.club.txtFecha.getText()),
+                            this.club.txtCampo.getText())) {
+                        this.club.tablaClub.setModel(this.mclub.getTablaClub());
+                        JOptionPane.showMessageDialog(club, "Exito: Nuevo registro agregado.");
+                        this.club.txtId.setText("");
+                        this.club.txtNombre.setText("");
+                        this.club.txtFecha.setText("");
+                        this.club.txtCampo.setText("");
+                    } else //ocurrio un error
+                    {
+                        JOptionPane.showMessageDialog(club, "Error: ID o Nombre ya registrado.");
+                    }
                 }
                 break;
             case __ELIMINAR_CLUB:
                 int filasel = club.tablaClub.getSelectedRow();
                 if (filasel != -1) {
-                    if ( this.mclub.EliminarClub((int) this.club.txtId.getValue()) ) 
-                    {
-                        this.club.tablaClub.setModel( this.mclub.getTablaClub() );
-                        JOptionPane.showMessageDialog(club,"Exito: Registro eliminado.");
+                    if (this.mclub.EliminarClub(Integer.parseInt(this.club.txtId.getText()))) {
+                        this.club.tablaClub.setModel(this.mclub.getTablaClub());
+                        JOptionPane.showMessageDialog(club, "Exito: Registro eliminado.");
                         this.club.txtId.setText("");
-                        this.club.txtNombre.setText("") ;
+                        this.club.txtNombre.setText("");
                         this.club.txtFecha.setText("");
-                        this.club.txtCampo.setText("") ;
+                        this.club.txtCampo.setText("");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(club,"No hay ninguna fila seleccionada.");    
+                    JOptionPane.showMessageDialog(club, "No hay ninguna fila seleccionada.");
                 }
                 break;
+            case __MODIFICAR_CLUB:
+                filasel = club.tablaClub.getSelectedRow();
+                //modifico un nuevo registro
+                if (filasel != -1) {
+                    if (this.mclub.ModificarClub(
+                            Integer.parseInt(this.club.txtId.getText()),
+                            this.club.txtNombre.getText(),
+                            Integer.parseInt(this.club.txtFecha.getText()),
+                            this.club.txtCampo.getText())) {
+                        this.club.tablaClub.setModel(this.mclub.getTablaClub());
+                        JOptionPane.showMessageDialog(club, "Exito: Nuevo registro modificado.");
+                        this.club.txtId.setText("");
+                        this.club.txtNombre.setText("");
+                        this.club.txtFecha.setText("");
+                        this.club.txtCampo.setText("");
+                    } else //ocurrio un error
+                    {
+                        JOptionPane.showMessageDialog(club, "Error: Nombre ya registrado.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(club, "No hay ninguna fila seleccionada.");
+                }
+                break;
+            case __VOLVER:
+                this.club.dispose();
+                Controlador_ventanaprincipal.ventana.setVisible(true);
+                break;
+            case __BUSCADOR:
+                fclub = new FiltraClub();
+                fclub.setVisible(true);
+                break;
+            case __LIMPIAR:
+                this.club.txtId.setText("");
+                this.club.txtNombre.setText("");
+                this.club.txtFecha.setText("");
+                this.club.txtCampo.setText("");
+                break;
         }
-
     }
 
     @Override

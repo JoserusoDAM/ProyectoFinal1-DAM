@@ -18,7 +18,7 @@ public class Modelo_Club extends Conexion {
     public DefaultTableModel getTablaClub() {
         DefaultTableModel tablemodel = new DefaultTableModel();
         int registros = 0;
-        String[] columNames = {"id_club", "nombre", "fecha_creacion", "nom_estadio"};
+        String[] columNames = {"Id_Club", "Nombre", "Fecha Creacion", "Nombre Estadio"};
         //obtenemos la cantidad de registros existentes en la tabla y se almacena en la variable "registros"
         //para formar la matriz de datos
         try {
@@ -31,16 +31,16 @@ public class Modelo_Club extends Conexion {
             System.err.println(e.getMessage());
         }
         //se crea una matriz con tantas filas y columnas que necesite
-        Object[][] data = new String[registros][5];
+        Object[][] data = new String[registros][4];
         try {
             //realizamos la consulta sql y llenamos los datos en la matriz "Object[][] data"
             PreparedStatement pstm = Modelo_Club.getConnection().prepareStatement("SELECT * FROM Clubs");
             ResultSet res = pstm.executeQuery();
             int i = 0;
             while (res.next()) {
-                data[i][0] = res.getInt("id_club");
+                data[i][0] = res.getString("id_club");
                 data[i][1] = res.getString("nombre");
-                data[i][2] = res.getInt("fecha_creacion");
+                data[i][2] = res.getString("fecha_creacion");
                 data[i][3] = res.getString("nom_estadio");
                 i++;
             }
@@ -63,7 +63,10 @@ public class Modelo_Club extends Conexion {
      */
     public boolean NuevoClub(String nombre, int fecha_creacion, String nom_estadio) {
         try {
-            CallableStatement call = Modelo_Club.getConnection().prepareCall("{call insertClub (?,?,?}");
+            CallableStatement call = Modelo_Club.getConnection().prepareCall("{call insertClub (?,?,?)}");
+            call.setString(1, nombre);
+            call.setInt(2, fecha_creacion);
+            call.setString(3, nom_estadio);
             call.execute();
             call.close();
             return true;
@@ -79,9 +82,10 @@ public class Modelo_Club extends Conexion {
      * @param id_club
      * @return true/false
      */
-    public boolean EliminarClub(String id_club) {
+    public boolean EliminarClub(int id_club) {
         try {
-            CallableStatement call = Modelo_Club.getConnection().prepareCall("{call deleteClub (?}");
+            CallableStatement call = Modelo_Club.getConnection().prepareCall("{call deleteClub (?)}");
+            call.setInt(1, id_club);
             call.execute();
             call.close();
             return true;
@@ -102,7 +106,11 @@ public class Modelo_Club extends Conexion {
      */
     public boolean ModificarClub(int id_club, String nombre, int fecha_creacion, String nom_estadio) {
         try {
-            CallableStatement call = Modelo_Club.getConnection().prepareCall("{call updateClub (?,?,?,?}");
+            CallableStatement call = Modelo_Club.getConnection().prepareCall("{call updateClub (?,?,?,?)}");
+            call.setInt(1, id_club);
+            call.setString(2, nombre);
+            call.setInt(3, fecha_creacion);
+            call.setString(4, nom_estadio);
             call.execute();
             call.close();
             return true;

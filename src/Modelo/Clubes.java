@@ -11,21 +11,7 @@ public class Clubes {
     private int fecha_creacion;
     private String nombre;
     private String nom_estadio;
-
-    /**
-     * Constructor parametrizado
-     * @param id_club id del club
-     * @param fecha_creacion fecha de creacion
-     * @param nombre Nombre del club
-     * @param nom_estadio Nombre del estadio
-     */
-    public Clubes(int id_club, int fecha_creacion, String nombre, String nom_estadio) {
-        this.id_club = id_club;
-        this.fecha_creacion = fecha_creacion;
-        this.nombre = nombre;
-        this.nom_estadio = nom_estadio;
-    }
-    
+   
     /**
      * Constructor por defecto
      */
