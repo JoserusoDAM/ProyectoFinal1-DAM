@@ -2,7 +2,8 @@ package Controlador;
 
 import Modelo.Clubes;
 import Modelo.DAO.Modelo_ClubDAO;
-import Vista.FiltraClub;
+import Modelo.DAO.Modelo_HistoricoDAO;
+import Vista.Asociar;
 import Vista.TodosClubs;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +14,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  *
@@ -21,10 +23,11 @@ import javax.swing.table.DefaultTableModel;
 public class Controlador_Club implements ActionListener, MouseListener {
 
     public TodosClubs club;
-    public FiltraClub fclub;
     Modelo_ClubDAO mclub = new Modelo_ClubDAO();
+    Modelo_HistoricoDAO mHis = new Modelo_HistoricoDAO();
     Clubes objClub = new Clubes();
-
+    int respuesta, filasel;
+    
     public Controlador_Club(TodosClubs club) {
         this.club = club;
     }
@@ -34,10 +37,12 @@ public class Controlador_Club implements ActionListener, MouseListener {
         __NUEVO_CLUB,
         __ELIMINAR_CLUB,
         __MODIFICAR_CLUB,
+        __ASOCIAR,
         __VOLVER,
         __BUSCADOR,
         __LIMPIAR,
         __CREAR_PDF,
+        __COMBOCLUB
     }
 
     public void iniciar() {
@@ -75,8 +80,14 @@ public class Controlador_Club implements ActionListener, MouseListener {
         this.club.btnLimpiar.setActionCommand("__LIMPIAR");
         this.club.btnLimpiar.addActionListener(this);
         //declara una acción y añade un escucha al evento producido por el componente
+        this.club.btnAsociar.setActionCommand("__ASOCIAR");
+        this.club.btnAsociar.addActionListener(this);
+        //declara una acción y añade un escucha al evento producido por el componente
         this.club.btnPdf.setActionCommand("__CREAR_PDF");
         this.club.btnPdf.addActionListener(this);
+        //declara una acción y añade un escucha al evento producido por el componente
+        this.club.comboClubs.setActionCommand("__COMBOCLUB");
+        this.club.comboClubs.addActionListener(this);
         //declara una acción y añade un escucha al evento producido por el componente
         this.club.tablaClub.addMouseListener(this);
         this.club.tablaClub.setModel(new DefaultTableModel());
@@ -84,9 +95,8 @@ public class Controlador_Club implements ActionListener, MouseListener {
         this.club.setLocationRelativeTo(null);
         //bloqueamos en campo id para que no se pueda rellenar
         this.club.txtId.setEnabled(false);
-        //cargamos la tabla (opcional)
-        this.club.tablaClub.setModel(this.mclub.getTablaClub());
-        
+
+        this.club.comboClubs.setEditable(true);
     }
 
     @Override
@@ -97,11 +107,8 @@ public class Controlador_Club implements ActionListener, MouseListener {
                 //obtiene del modelo los registros en un DefaultTableModel y lo asigna en la vista
                 this.club.tablaClub.setModel(this.mclub.getTablaClub());
                 break;
-                
+
             case __NUEVO_CLUB:
-                objClub.setNombre(this.club.txtNombre.getText());
-                objClub.setFecha_creacion(Integer.parseInt(this.club.txtFecha.getText()));
-                objClub.setNom_estadio(this.club.txtCampo.getText());
                 //añade un nuevo registro
                 //  Clubes objClub;
                 if (this.club.txtNombre.getText().length() == 0
@@ -109,48 +116,48 @@ public class Controlador_Club implements ActionListener, MouseListener {
                         || this.club.txtCampo.getText().length() == 0) {
                     JOptionPane.showMessageDialog(club, "Error: Campos vacios.");
                 } else {
-                    if (this.mclub.NuevoClub(objClub)) {
-                        this.club.tablaClub.setModel(this.mclub.getTablaClub());
-                        JOptionPane.showMessageDialog(club, "Exito: Nuevo registro agregado.");
-                        this.club.txtId.setText("");
-                        this.club.txtNombre.setText("");
-                        this.club.txtFecha.setText("");
-                        this.club.txtCampo.setText("");
-                    } else //ocurrio un error
-                    {
-                        JOptionPane.showMessageDialog(club, "Error: ID o Nombre ya registrado.");
+
+                    respuesta = JOptionPane.showConfirmDialog(null, "Desea insertar al club");
+
+                    if (respuesta == 0) {
+                        objClub.setNombre(this.club.txtNombre.getText());
+                        objClub.setFecha_creacion(Integer.parseInt(this.club.txtFecha.getText()));
+                        objClub.setNom_estadio(this.club.txtCampo.getText());
+                        if (this.mclub.NuevoClub(objClub)) {
+                            this.club.tablaClub.setModel(this.mclub.getTablaClub());
+                            JOptionPane.showMessageDialog(club, "Exito: Nuevo registro agregado.");
+                            limpiar ();
+                        } else //ocurrio un error
+                        {
+                            JOptionPane.showMessageDialog(club, "Error: ID o Nombre ya registrado.");
+                        }
                     }
                 }
                 break;
-                
+
             case __ELIMINAR_CLUB:
-                int filasel = club.tablaClub.getSelectedRow();
+                filasel = club.tablaClub.getSelectedRow();
                 if (filasel != -1) {
                     if (this.club.txtNombre.getText().length() == 0
                             || this.club.txtFecha.getText().length() == 0
                             || this.club.txtCampo.getText().length() == 0) {
                         JOptionPane.showMessageDialog(club, "Error: Campos vacios.");
                     } else {
-                        if (this.mclub.EliminarClub(Integer.parseInt(this.club.txtId.getText()))) {
-                            this.club.tablaClub.setModel(this.mclub.getTablaClub());
-                            JOptionPane.showMessageDialog(club, "Exito: Registro eliminado.");
-                            this.club.txtId.setText("");
-                            this.club.txtNombre.setText("");
-                            this.club.txtFecha.setText("");
-                            this.club.txtCampo.setText("");
+                        respuesta = JOptionPane.showConfirmDialog(null, "Desea eliminar el club");
+                        if (respuesta == 0) {
+                            if (this.mclub.EliminarClub(Integer.parseInt(this.club.txtId.getText()))) {
+                                this.club.tablaClub.setModel(this.mclub.getTablaClub());
+                                JOptionPane.showMessageDialog(club, "Exito: Registro eliminado.");
+                                limpiar ();
+                            }
                         }
                     }
-
                 } else {
                     JOptionPane.showMessageDialog(club, "No hay ninguna fila seleccionada.");
                 }
                 break;
-                
+
             case __MODIFICAR_CLUB:
-                objClub.setId_club(Integer.parseInt(this.club.txtId.getText()));
-                objClub.setNombre(this.club.txtNombre.getText());
-                objClub.setFecha_creacion(Integer.parseInt(this.club.txtFecha.getText()));
-                objClub.setNom_estadio(this.club.txtCampo.getText());
                 filasel = club.tablaClub.getSelectedRow();
                 //modifico un nuevo registro
                 if (filasel != -1) {
@@ -159,43 +166,51 @@ public class Controlador_Club implements ActionListener, MouseListener {
                             || this.club.txtCampo.getText().length() == 0) {
                         JOptionPane.showMessageDialog(club, "Error: Campos vacios.");
                     } else {
-                        if (this.mclub.ModificarClub(objClub)) {
-                            this.club.tablaClub.setModel(this.mclub.getTablaClub());
-                            JOptionPane.showMessageDialog(club, "Exito: Nuevo registro modificado.");
-                            this.club.txtId.setText("");
-                            this.club.txtNombre.setText("");
-                            this.club.txtFecha.setText("");
-                            this.club.txtCampo.setText("");
-                        } else //ocurrio un error
-                        {
-                            JOptionPane.showMessageDialog(club, "Error: Nombre ya registrado.");
+                        respuesta = JOptionPane.showConfirmDialog(null, "Desea modificar los datos del club");
+                        if (respuesta == 0) {
+                            objClub.setId_club(Integer.parseInt(this.club.txtId.getText()));
+                            objClub.setNombre(this.club.txtNombre.getText());
+                            objClub.setFecha_creacion(Integer.parseInt(this.club.txtFecha.getText()));
+                            objClub.setNom_estadio(this.club.txtCampo.getText());
+                            if (this.mclub.ModificarClub(objClub)) {
+                                this.club.tablaClub.setModel(this.mclub.getTablaClub());
+                                JOptionPane.showMessageDialog(club, "Exito: Nuevo registro modificado.");
+                                limpiar ();
+                            } else //ocurrio un error
+                            {
+                                JOptionPane.showMessageDialog(club, "Error: Nombre ya registrado.");
+                            }
                         }
                     }
                 } else {
                     JOptionPane.showMessageDialog(club, "No hay ninguna fila seleccionada.");
                 }
                 break;
-                
+
+            case __ASOCIAR:
+                new Controlador_Historico(new Asociar(club, false)).iniciar();
+                break;
+
             case __VOLVER:
                 this.club.dispose();
                 Controlador_ventanaprincipal.ventana.setVisible(true);
                 break;
+
+            case __BUSCADOR:
                 
-            case __BUSCADOR:    
-                this.club.tablaClub.setModel(this.mclub.getTablaClubPersonalizada(Integer.parseInt(this.club.txtIdBuscador.getText())));
+
                 break;
-                
+
             case __LIMPIAR:
-                this.club.txtId.setText("");
-                this.club.txtNombre.setText("");
-                this.club.txtFecha.setText("");
-                this.club.txtCampo.setText("");
+                limpiar ();
                 break;
+
+            case __COMBOCLUB:
+
+ 
         }
     }
 
-    
-    
     @Override
     public void mouseClicked(MouseEvent me) {
 
@@ -209,7 +224,6 @@ public class Controlador_Club implements ActionListener, MouseListener {
                 this.club.txtCampo.setText(String.valueOf(this.club.tablaClub.getValueAt(fila, 3)));
             }
         }
-
     }
 
     @Override
@@ -232,4 +246,10 @@ public class Controlador_Club implements ActionListener, MouseListener {
 
     }
 
+    public void limpiar () {
+        this.club.txtId.setText("");
+        this.club.txtNombre.setText("");
+        this.club.txtFecha.setText("");
+        this.club.txtCampo.setText("");
+    }
 }

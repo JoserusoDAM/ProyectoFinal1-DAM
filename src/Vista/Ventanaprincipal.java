@@ -31,20 +31,26 @@ public class Ventanaprincipal extends javax.swing.JFrame {
         panelClub = new javax.swing.JPanel();
         btnEntrarClub = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         panelFutbolista = new javax.swing.JPanel();
         btnEntrarFutbolista = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Base de datos LFP");
+        setResizable(false);
 
-        panelClub.setBackground(new java.awt.Color(153, 255, 153));
+        panelClub.setBackground(new java.awt.Color(255, 255, 204));
         panelClub.setPreferredSize(new java.awt.Dimension(240, 0));
 
+        btnEntrarClub.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         btnEntrarClub.setText("Entrar");
 
-        jLabel2.setText("Club");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo_club.png"))); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
+        jLabel4.setText("GESTIÓN DE CLUBES");
 
         javax.swing.GroupLayout panelClubLayout = new javax.swing.GroupLayout(panelClub);
         panelClub.setLayout(panelClubLayout);
@@ -53,29 +59,39 @@ public class Ventanaprincipal extends javax.swing.JFrame {
             .addGroup(panelClubLayout.createSequentialGroup()
                 .addGroup(panelClubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelClubLayout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(btnEntrarClub))
+                        .addGap(140, 140, 140)
+                        .addGroup(panelClubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelClubLayout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addComponent(btnEntrarClub, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2)))
                     .addGroup(panelClubLayout.createSequentialGroup()
-                        .addGap(92, 92, 92)
-                        .addComponent(jLabel2)))
-                .addContainerGap(94, Short.MAX_VALUE))
+                        .addGap(74, 74, 74)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
         panelClubLayout.setVerticalGroup(
             panelClubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelClubLayout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(jLabel2)
+                .addGap(62, 62, 62)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnEntrarClub)
-                .addGap(43, 43, 43))
+                .addComponent(btnEntrarClub, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65))
         );
 
-        panelFutbolista.setBackground(new java.awt.Color(153, 204, 255));
+        panelFutbolista.setBackground(new java.awt.Color(204, 204, 0));
         panelFutbolista.setPreferredSize(new java.awt.Dimension(240, 0));
 
+        btnEntrarFutbolista.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         btnEntrarFutbolista.setText("Entrar");
 
-        jLabel3.setText("Futbolistas");
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo_futb.jpg"))); // NOI18N
+
+        jLabel5.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
+        jLabel5.setText("GESTIÓN DE FUTBOLISTAS");
 
         javax.swing.GroupLayout panelFutbolistaLayout = new javax.swing.GroupLayout(panelFutbolista);
         panelFutbolista.setLayout(panelFutbolistaLayout);
@@ -84,51 +100,43 @@ public class Ventanaprincipal extends javax.swing.JFrame {
             .addGroup(panelFutbolistaLayout.createSequentialGroup()
                 .addGroup(panelFutbolistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelFutbolistaLayout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(btnEntrarFutbolista))
+                        .addGap(99, 99, 99)
+                        .addComponent(jLabel3))
                     .addGroup(panelFutbolistaLayout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(jLabel3)))
-                .addContainerGap(75, Short.MAX_VALUE))
+                        .addGap(69, 69, 69)
+                        .addComponent(jLabel5)))
+                .addContainerGap(72, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFutbolistaLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnEntrarFutbolista, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(191, 191, 191))
         );
         panelFutbolistaLayout.setVerticalGroup(
             panelFutbolistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFutbolistaLayout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
-                .addComponent(btnEntrarFutbolista)
-                .addGap(44, 44, 44))
+                .addGap(80, 80, 80)
+                .addComponent(jLabel5)
+                .addGap(57, 57, 57)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(btnEntrarFutbolista, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
-
-        jLabel1.setText("Bienvenido a la Base de Datos de la LFP");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(panelClub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(panelFutbolista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addComponent(jLabel1)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addComponent(panelClub, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(panelFutbolista, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelFutbolista, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
-                    .addComponent(panelClub, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(panelClub, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+            .addComponent(panelFutbolista, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
         );
 
         panelClub.getAccessibleContext().setAccessibleName("    Clubs");
@@ -174,9 +182,10 @@ public class Ventanaprincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnEntrarClub;
     public javax.swing.JButton btnEntrarFutbolista;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel panelClub;
     private javax.swing.JPanel panelFutbolista;
     // End of variables declaration//GEN-END:variables

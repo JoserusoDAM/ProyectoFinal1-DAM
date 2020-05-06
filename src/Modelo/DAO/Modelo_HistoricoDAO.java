@@ -1,4 +1,4 @@
-package Modelo;
+package Modelo.DAO;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -10,9 +10,9 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Jose
  */
-public class Modelo_Historico {
+public class Modelo_HistoricoDAO {
 
-    public Modelo_Historico() {
+    public Modelo_HistoricoDAO() {
     }
 
     public DefaultTableModel getTablaHistoricos() {
@@ -22,7 +22,7 @@ public class Modelo_Historico {
         //obtenemos la cantidad de registros existentes en la tabla y se almacena en la variable "registros"
         //para formar la matriz de datos
         try {
-            PreparedStatement pstm = Modelo_Club.getConnection().prepareStatement("SELECT count(*) as total FROM Historico");
+            PreparedStatement pstm = Modelo_ClubDAO.getConnection().prepareStatement("SELECT count(*) as total FROM Historico");
             ResultSet res = pstm.executeQuery();
             res.next();
             registros = res.getInt("total");
@@ -34,7 +34,7 @@ public class Modelo_Historico {
         Object[][] data = new String[registros][4];
         try {
             //realizamos la consulta sql y llenamos los datos en la matriz "Object[][] data"
-            PreparedStatement pstm = Modelo_Club.getConnection().prepareStatement("SELECT * FROM Historico");
+            PreparedStatement pstm = Modelo_ClubDAO.getConnection().prepareStatement("SELECT * FROM Historico");
             ResultSet res = pstm.executeQuery();
             int i = 0;
             while (res.next()) {
@@ -62,7 +62,10 @@ public class Modelo_Historico {
      */
     public boolean NuevoHistorico(int id_club, int id_futbolista, int temporada) {
         try {
-            CallableStatement call = Modelo_Club.getConnection().prepareCall("{call insertHistorico (?,?,?,?}");
+            CallableStatement call = Modelo_ClubDAO.getConnection().prepareCall("{call insertHistorico (?,?,?,?)}");
+            call.setInt(1, id_club);
+            call.setInt(2, id_futbolista);
+            call.setInt(3, temporada);
             call.execute();
             call.close();
             return true;
@@ -82,7 +85,10 @@ public class Modelo_Historico {
      */
     public boolean EliminarHistorico(int id_club, int id_futbolista, int temporada) {
         try {
-            CallableStatement call = Modelo_Club.getConnection().prepareCall("{call deleteHistorico (?, ?, ?}");
+            CallableStatement call = Modelo_ClubDAO.getConnection().prepareCall("{call deleteHistorico (?, ?, ?)}");
+            call.setInt(1, id_club);
+            call.setInt(2, id_futbolista);
+            call.setInt(3, temporada);
             call.execute();
             call.close();
             return true;
@@ -102,7 +108,10 @@ public class Modelo_Historico {
      */
     public boolean ModificarHistorico(int id_club, int id_futbolista, int temporada) {
         try {
-            CallableStatement call = Modelo_Club.getConnection().prepareCall("{call updateHistorico (?,?,?}");
+            CallableStatement call = Modelo_ClubDAO.getConnection().prepareCall("{call updateHistorico (?,?,?)}");
+            call.setInt(1, id_club);
+            call.setInt(2, id_futbolista);
+            call.setInt(3, temporada);
             call.execute();
             call.close();
             return true;
@@ -112,4 +121,17 @@ public class Modelo_Historico {
         return false;
     }
 
+    public boolean BuscarJugadores(String nombre) {
+        try {
+            CallableStatement call = Modelo_ClubDAO.getConnection().prepareCall("{call buscarEquipos (?)}");
+            call.setString(1, nombre);
+            call.execute();
+            call.close();
+            return true;
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return false;
+    }
+    
 }
