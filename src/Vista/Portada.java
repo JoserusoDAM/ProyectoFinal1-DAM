@@ -46,10 +46,10 @@ public class Portada extends javax.swing.JFrame {
         labelTitulo1.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         labelTitulo1.setText("Bienvenido a la Base de datos de la");
 
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lfp-logo.jpg"))); // NOI18N
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ico_portada.jpg"))); // NOI18N
 
         labelTitulo2.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        labelTitulo2.setText("Liga Profesional de Fútbol");
+        labelTitulo2.setText("Liga de Futbol Profesional");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

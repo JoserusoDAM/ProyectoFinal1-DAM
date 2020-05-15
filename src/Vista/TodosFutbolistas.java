@@ -5,7 +5,6 @@
  */
 package Vista;
 
-
 /**
  *
  * @author Jose
@@ -20,6 +19,7 @@ public class TodosFutbolistas extends javax.swing.JFrame {
     public TodosFutbolistas() {
         initComponents();
         this.setLocationRelativeTo(null);
+        
     }
     
 
@@ -32,43 +32,56 @@ public class TodosFutbolistas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelGeneral = new javax.swing.JPanel();
         btnVolver = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaFutbolista = new javax.swing.JTable();
-        btnPdf = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
+        labelTitulo = new javax.swing.JLabel();
+        panelRegistro = new javax.swing.JPanel();
+        labelNif = new javax.swing.JLabel();
         txtNif = new javax.swing.JTextField();
+        labelNombre = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
+        labelApellidos = new javax.swing.JLabel();
         txtApellidos = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        labelFechaNac = new javax.swing.JLabel();
+        txtFechaNac = new javax.swing.JFormattedTextField();
+        labelNacionalidad = new javax.swing.JLabel();
         txtNacionalidad = new javax.swing.JTextField();
         btnNuevo = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        btnMostrar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        btnModificar = new javax.swing.JButton();
         btnAsociar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
+        panelBusqueda = new javax.swing.JPanel();
+        labelBuscar = new javax.swing.JLabel();
+        txtFiltro = new javax.swing.JTextField();
+        btnPdf = new javax.swing.JButton();
+        btnMostrar = new javax.swing.JButton();
+        labelClubs = new javax.swing.JLabel();
+        labelNombreClub = new javax.swing.JLabel();
         comboFutbolistas = new javax.swing.JComboBox<>();
         btnBuscar = new javax.swing.JButton();
-        DateChooserFutb = new com.toedter.calendar.JDateChooser();
-        txtFechaNac = new javax.swing.JFormattedTextField();
+        labelTemporada = new javax.swing.JLabel();
+        txtTemporada = new javax.swing.JFormattedTextField();
+        btnEliminarAsoc = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestión de Futbolistas");
         setResizable(false);
 
-        btnVolver.setText("VOLVER");
+        panelGeneral.setBackground(new java.awt.Color(255, 255, 204));
 
-        jLabel1.setText("Listado de todos los futbolistas participantes en la LFP");
+        btnVolver.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ico_volver.jpg"))); // NOI18N
 
+        tablaFutbolista.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        tablaFutbolista = new javax.swing.JTable() {
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
         tablaFutbolista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -80,193 +93,279 @@ public class TodosFutbolistas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaFutbolista.setRowHeight(30);
         jScrollPane1.setViewportView(tablaFutbolista);
 
-        btnPdf.setText("Descargar pdf");
+        labelTitulo.setBackground(new java.awt.Color(204, 204, 0));
+        labelTitulo.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        labelTitulo.setText("     Listado de todos los futbolistas participantes en la LFP");
 
-        jLabel4.setText("Nombre:");
+        panelRegistro.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalles del registro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 0, 16))); // NOI18N
 
-        jLabel5.setText("Apellidos:");
+        labelNif.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        labelNif.setText("NIF: ");
 
-        jLabel6.setText("Id Jugador:");
+        labelNombre.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        labelNombre.setText("Nombre:");
 
-        jLabel3.setText("NIF: ");
+        labelApellidos.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        labelApellidos.setText("Apellidos:");
 
-        jLabel8.setText("Fecha de nac.");
+        labelFechaNac.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        labelFechaNac.setText("Fecha de nac.");
 
-        jLabel9.setText("Nacionalidad: ");
+        txtFechaNac.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
 
+        labelNacionalidad.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        labelNacionalidad.setText("Nacionalidad: ");
+
+        btnNuevo.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ico_insertar.png"))); // NOI18N
         btnNuevo.setText("Nuevo");
 
-        btnModificar.setText("Modificar");
-
+        btnEliminar.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ico_borrar.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
 
-        btnMostrar.setText("Mostrar");
+        btnModificar.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ico_modficiar.png"))); // NOI18N
+        btnModificar.setText("Modificar");
 
-        jLabel2.setText("Acciones");
-
+        btnAsociar.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        btnAsociar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ico_asociar.png"))); // NOI18N
         btnAsociar.setText("Asociar");
 
-        btnLimpiar.setText("Limpiar");
+        btnLimpiar.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ico_refrescar.png"))); // NOI18N
+        btnLimpiar.setText("Vaciar ");
 
-        jLabel10.setText("Consultar los jugadores de un Club:");
+        javax.swing.GroupLayout panelRegistroLayout = new javax.swing.GroupLayout(panelRegistro);
+        panelRegistro.setLayout(panelRegistroLayout);
+        panelRegistroLayout.setHorizontalGroup(
+            panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRegistroLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelRegistroLayout.createSequentialGroup()
+                        .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelApellidos)
+                            .addComponent(labelNombre))
+                        .addGap(72, 72, 72)
+                        .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelRegistroLayout.createSequentialGroup()
+                        .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelFechaNac)
+                            .addComponent(labelNacionalidad)
+                            .addComponent(labelNif))
+                        .addGap(32, 32, 32)
+                        .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNif, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelRegistroLayout.createSequentialGroup()
+                        .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelRegistroLayout.createSequentialGroup()
+                                .addComponent(btnLimpiar)
+                                .addGap(32, 32, 32)
+                                .addComponent(btnAsociar))
+                            .addGroup(panelRegistroLayout.createSequentialGroup()
+                                .addComponent(btnNuevo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnModificar)))
+                        .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelRegistroLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(btnEliminar))
+                            .addGroup(panelRegistroLayout.createSequentialGroup()
+                                .addGap(56, 56, 56)
+                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+        panelRegistroLayout.setVerticalGroup(
+            panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRegistroLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelNif)
+                    .addComponent(txtNif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelNombre)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelApellidos)
+                    .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelFechaNac)
+                    .addComponent(txtFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelNacionalidad)
+                    .addComponent(txtNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnModificar)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnNuevo))
+                .addGap(33, 33, 33)
+                .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLimpiar)
+                    .addComponent(btnAsociar)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39))
+        );
 
-        jLabel11.setText("Nombre: ");
+        panelBusqueda.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Acciones de búsqueda", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 0, 16))); // NOI18N
 
-        comboFutbolistas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        labelBuscar.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        labelBuscar.setText("Buscar:");
 
+        btnPdf.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        btnPdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ido_pdf.png"))); // NOI18N
+        btnPdf.setText("PDF");
+
+        btnMostrar.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        btnMostrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ico_mostrar.png"))); // NOI18N
+        btnMostrar.setText("Mostrar");
+
+        labelClubs.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        labelClubs.setText("  Consultar los jugadores de un Club:");
+
+        labelNombreClub.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        labelNombreClub.setText("Nombre: ");
+
+        comboFutbolistas.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+
+        btnBuscar.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ico_buscar.png"))); // NOI18N
         btnBuscar.setText("Buscar");
 
-        DateChooserFutb.setDateFormatString("dd-MM-yyyy");
+        labelTemporada.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        labelTemporada.setText("Temporada");
+
+        btnEliminarAsoc.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        btnEliminarAsoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ico_borrar.png"))); // NOI18N
+        btnEliminarAsoc.setText("Eliminar asociacion");
+
+        javax.swing.GroupLayout panelBusquedaLayout = new javax.swing.GroupLayout(panelBusqueda);
+        panelBusqueda.setLayout(panelBusquedaLayout);
+        panelBusquedaLayout.setHorizontalGroup(
+            panelBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBusquedaLayout.createSequentialGroup()
+                .addGroup(panelBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelBusquedaLayout.createSequentialGroup()
+                        .addComponent(labelBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnPdf)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnMostrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(panelBusquedaLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(labelNombreClub)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(comboFutbolistas, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBuscar))
+                        .addGroup(panelBusquedaLayout.createSequentialGroup()
+                            .addGap(12, 12, 12)
+                            .addComponent(labelTemporada)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtTemporada, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(34, 34, 34)
+                            .addComponent(btnEliminarAsoc))))
+                .addGap(21, 21, 21))
+            .addComponent(labelClubs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panelBusquedaLayout.setVerticalGroup(
+            panelBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBusquedaLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(panelBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelBuscar)
+                    .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPdf)
+                    .addComponent(btnMostrar))
+                .addGap(18, 18, 18)
+                .addComponent(labelClubs, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addGroup(panelBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelNombreClub)
+                    .addComponent(comboFutbolistas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
+                .addGap(18, 18, 18)
+                .addGroup(panelBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTemporada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminarAsoc)
+                    .addComponent(labelTemporada))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout panelGeneralLayout = new javax.swing.GroupLayout(panelGeneral);
+        panelGeneral.setLayout(panelGeneralLayout);
+        panelGeneralLayout.setHorizontalGroup(
+            panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGeneralLayout.createSequentialGroup()
+                .addContainerGap(30, Short.MAX_VALUE)
+                .addGroup(panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(panelBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelGeneralLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(panelRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGeneralLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44))))
+            .addComponent(labelTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panelGeneralLayout.setVerticalGroup(
+            panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelGeneralLayout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelGeneralLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 30, Short.MAX_VALUE)
+                        .addComponent(panelBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(35, Short.MAX_VALUE))
+                    .addGroup(panelGeneralLayout.createSequentialGroup()
+                        .addComponent(panelRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36))))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(btnPdf)
-                        .addGap(143, 143, 143)
-                        .addComponent(btnMostrar)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(168, 168, 168)
-                        .addComponent(jLabel2)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel5))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtApellidos))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel4))
-                                        .addGap(28, 28, 28)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtNif)
-                                            .addComponent(txtNombre)
-                                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(txtFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(DateChooserFutb, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(txtNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(24, 24, 24))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnAsociar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(16, 16, 16)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(27, 27, 27)
-                                        .addComponent(btnModificar)))
-                                .addGap(33, 33, 33))))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(332, 332, 332))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(18, 18, 18)
-                        .addComponent(comboFutbolistas, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(btnBuscar))
-                    .addComponent(jLabel10))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(panelGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtNif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel8)
-                                .addComponent(txtFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(DateChooserFutb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(txtNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnNuevo)
-                            .addComponent(btnEliminar)
-                            .addComponent(btnModificar)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnMostrar)
-                            .addComponent(btnPdf)
-                            .addComponent(btnAsociar)
-                            .addComponent(btnLimpiar))))
-                .addGap(38, 38, 38)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(comboFutbolistas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                .addComponent(btnVolver)
-                .addContainerGap())
+                .addComponent(panelGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+  
     /**
      * @param args the command line arguments
      */
@@ -303,10 +402,10 @@ public class TodosFutbolistas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public com.toedter.calendar.JDateChooser DateChooserFutb;
     public javax.swing.JButton btnAsociar;
     public javax.swing.JButton btnBuscar;
     public javax.swing.JButton btnEliminar;
+    public javax.swing.JButton btnEliminarAsoc;
     public javax.swing.JButton btnLimpiar;
     public javax.swing.JButton btnModificar;
     public javax.swing.JButton btnMostrar;
@@ -314,23 +413,28 @@ public class TodosFutbolistas extends javax.swing.JFrame {
     public javax.swing.JButton btnPdf;
     public javax.swing.JButton btnVolver;
     public javax.swing.JComboBox<String> comboFutbolistas;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelApellidos;
+    private javax.swing.JLabel labelBuscar;
+    public javax.swing.JLabel labelClubs;
+    private javax.swing.JLabel labelFechaNac;
+    private javax.swing.JLabel labelNacionalidad;
+    private javax.swing.JLabel labelNif;
+    private javax.swing.JLabel labelNombre;
+    private javax.swing.JLabel labelNombreClub;
+    private javax.swing.JLabel labelTemporada;
+    public javax.swing.JLabel labelTitulo;
+    private javax.swing.JPanel panelBusqueda;
+    private javax.swing.JPanel panelGeneral;
+    private javax.swing.JPanel panelRegistro;
     public javax.swing.JTable tablaFutbolista;
     public javax.swing.JTextField txtApellidos;
     public javax.swing.JFormattedTextField txtFechaNac;
+    public javax.swing.JTextField txtFiltro;
     public javax.swing.JTextField txtId;
     public javax.swing.JTextField txtNacionalidad;
     public javax.swing.JTextField txtNif;
     public javax.swing.JTextField txtNombre;
+    public javax.swing.JFormattedTextField txtTemporada;
     // End of variables declaration//GEN-END:variables
 }

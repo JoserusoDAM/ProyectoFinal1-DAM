@@ -1,55 +1,22 @@
 package Modelo.DAO;
 
+
+import Modelo.Conexion;
+import Modelo.Historico;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.table.DefaultTableModel;
+import java.time.LocalDate;
+import javax.swing.DefaultListModel;
 
 /**
  *
  * @author Jose
  */
-public class Modelo_HistoricoDAO {
+public class Modelo_HistoricoDAO  extends Conexion{
 
     public Modelo_HistoricoDAO() {
-    }
-
-    public DefaultTableModel getTablaHistoricos() {
-        DefaultTableModel tablemodel = new DefaultTableModel();
-        int registros = 0;
-        String[] columNames = {"id_club", "id_futbolista", "temporada"};
-        //obtenemos la cantidad de registros existentes en la tabla y se almacena en la variable "registros"
-        //para formar la matriz de datos
-        try {
-            PreparedStatement pstm = Modelo_ClubDAO.getConnection().prepareStatement("SELECT count(*) as total FROM Historico");
-            ResultSet res = pstm.executeQuery();
-            res.next();
-            registros = res.getInt("total");
-            res.close();
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        //se crea una matriz con tantas filas y columnas que necesite
-        Object[][] data = new String[registros][4];
-        try {
-            //realizamos la consulta sql y llenamos los datos en la matriz "Object[][] data"
-            PreparedStatement pstm = Modelo_ClubDAO.getConnection().prepareStatement("SELECT * FROM Historico");
-            ResultSet res = pstm.executeQuery();
-            int i = 0;
-            while (res.next()) {
-                data[i][0] = res.getString("id_club");
-                data[i][1] = res.getInt("id_futbolista");
-                data[i][2] = res.getString("temporada");
-                i++;
-            }
-            res.close();
-            //se añade la matriz de datos en el DefaultTableModel
-            tablemodel.setDataVector(data, columNames);
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        return tablemodel;
     }
 
     /**
@@ -60,73 +27,38 @@ public class Modelo_HistoricoDAO {
      * @param temporada
      * @return
      */
-    public boolean NuevoHistorico(int id_club, int id_futbolista, int temporada) {
-        try {
-            CallableStatement call = Modelo_ClubDAO.getConnection().prepareCall("{call insertHistorico (?,?,?,?)}");
-            call.setInt(1, id_club);
-            call.setInt(2, id_futbolista);
-            call.setInt(3, temporada);
+    public boolean NuevoHistorico(Historico hist) {
+        if (validarTemporada(hist.getTemporada())) {
+            try {
+            CallableStatement call = Modelo_ClubDAO.getConnection().prepareCall("{call insertHistorico (?,?,?)}");
+            call.setInt(1, hist.getId_club());
+            call.setInt(2, hist.getId_futbolista());
+            call.setInt(3, hist.getTemporada());
             call.execute();
-            call.close();
+            close(call);
             return true;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
         return false;
+        } else {
+            return false;
+        }    
     }
 
     /**
      * Metodo para eliminar un registro Historico
      *
-     * @param id_club
-     * @param id_futbolista
-     * @param temporada
-     * @return
+     * @param Historico Historico
+     * @return true/false
      */
-    public boolean EliminarHistorico(int id_club, int id_futbolista, int temporada) {
+    public boolean EliminarHistorico(Historico hist) {
         try {
-            CallableStatement call = Modelo_ClubDAO.getConnection().prepareCall("{call deleteHistorico (?, ?, ?)}");
-            call.setInt(1, id_club);
-            call.setInt(2, id_futbolista);
-            call.setInt(3, temporada);
+            CallableStatement call = Modelo_ClubDAO.getConnection().prepareCall("{call deleteHistorico (?, ?)}");
+            call.setInt(1, hist.getId_futbolista());
+            call.setInt(2, hist.getTemporada());
             call.execute();
-            call.close();
-            return true;
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        return false;
-    }
-
-    /**
-     * Metodo para actualizar el historico
-     *
-     * @param id_club
-     * @param id_futbolista
-     * @param temporada
-     * @return
-     */
-    public boolean ModificarHistorico(int id_club, int id_futbolista, int temporada) {
-        try {
-            CallableStatement call = Modelo_ClubDAO.getConnection().prepareCall("{call updateHistorico (?,?,?)}");
-            call.setInt(1, id_club);
-            call.setInt(2, id_futbolista);
-            call.setInt(3, temporada);
-            call.execute();
-            call.close();
-            return true;
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        return false;
-    }
-
-    public boolean BuscarJugadores(String nombre) {
-        try {
-            CallableStatement call = Modelo_ClubDAO.getConnection().prepareCall("{call buscarEquipos (?)}");
-            call.setString(1, nombre);
-            call.execute();
-            call.close();
+            close(call);
             return true;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -134,4 +66,36 @@ public class Modelo_HistoricoDAO {
         return false;
     }
     
+    /**
+     * Metodo que crea la tabla de la lista de clubes
+     * @return lista
+     */
+    public DefaultListModel listaClubes () {
+        
+        DefaultListModel lista = new DefaultListModel();
+        String datos;
+        try {
+            PreparedStatement pstm = Modelo_ClubDAO.getConnection().prepareStatement("SELECT * FROM Clubs");
+            ResultSet res = pstm.executeQuery();
+             while (res.next()) {                
+                datos = res.getString(2);
+                lista.addElement(datos);
+            }
+            close(res);
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return lista;
+        
+    }
+ 
+        /**
+     * Metodo por el que validamos la fecha de creacion
+     * @param n Fecha de freacion
+     * @return true/false
+     */
+    public boolean validarTemporada (int n) {
+        LocalDate fechaActual = LocalDate.now();
+        return n <= fechaActual.getYear();
+    }
 }

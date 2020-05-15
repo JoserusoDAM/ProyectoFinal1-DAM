@@ -109,7 +109,7 @@
         <Component class="javax.swing.JLabel" name="logo">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imagenes/lfp-logo.jpg"/>
+              <Image iconType="3" name="/Imagenes/ico_portada.jpg"/>
             </Property>
           </Properties>
         </Component>
@@ -118,7 +118,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial Black" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Liga Profesional de F&#xfa;tbol"/>
+            <Property name="text" type="java.lang.String" value="Liga de Futbol Profesional"/>
           </Properties>
         </Component>
       </SubComponents>

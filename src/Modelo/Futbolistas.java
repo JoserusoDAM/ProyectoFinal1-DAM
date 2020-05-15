@@ -1,6 +1,5 @@
 package Modelo;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 /**
@@ -61,10 +60,10 @@ public class Futbolistas {
     }
 
     public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
-        this.fecha_nacimiento = fecha_nacimiento;
+        this.fecha_nacimiento = fecha_nacimiento;      
     }
-
-    public String getNacionalidad() {
+    
+     public String getNacionalidad() {
         return nacionalidad;
     }
 
@@ -80,5 +79,19 @@ public class Futbolistas {
     public String toString() {
         return "Futbolistas{" + "id_futbolista=" + id_futbolista + ", nif=" + nif + ", nombre=" + nombre + ", apellidos=" + apellidos + ", fecha_nacimiento=" + fecha_nacimiento + ", nacionalidad=" + nacionalidad + '}';
     }
+    
+    /**
+     * Metodo para comprobar que existen numeros en el string
+     * @param cadena
+     * @return true/false
+     */
+    private static boolean tieneNumeros(String cadena){
+	try {
+		Integer.parseInt(cadena);
+		return true;
+	} catch (NumberFormatException nfe){
+		return false;
+	}
+}
     
 }

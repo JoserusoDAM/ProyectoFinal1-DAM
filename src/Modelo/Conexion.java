@@ -1,19 +1,17 @@
-
 package Modelo;
 
 import java.sql.*;
 
 /**
- * @author Jose
- * Clase Conexion JDBC
+ * @author Jose Clase Conexion JDBC
  */
 public class Conexion {
 
     //Valores de conexion a MySql
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     //El puerto es opcional
-    private static final String JDBC_URL = "jdbc:mysql://jruso.salesianas.es/jruso_alumnos?useSSL=false";
-    private static final String JDBC_USER = "JoseA";
+    private static final String JDBC_URL = "jdbc:mysql://jruso.salesianas.es/jruso_lfp?useSSL=false";   //jruso_alumnos
+    private static final String JDBC_USER = "JoseLFP";  //JoseA
     private static final String JDBC_PASS = "dam561987**";
     private static Driver driver = null;
 
@@ -27,11 +25,11 @@ public class Conexion {
                 Class jdbcDriverClass = Class.forName(JDBC_DRIVER);
                 driver = (Driver) jdbcDriverClass.newInstance();
                 DriverManager.registerDriver(driver);
-            } catch (Exception e) {
+            } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e) {
                 System.out.println("Fallo en cargar el driver JDBC");
                 e.printStackTrace();
             }
-            
+
         }
         return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASS);
     }
