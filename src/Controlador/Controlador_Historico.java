@@ -17,7 +17,6 @@ import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 
@@ -38,10 +37,8 @@ public class Controlador_Historico implements ActionListener, MouseListener, Key
         this.asoc = asoc;
     }
 
-
     // enumeramos las acciones que realizaremos con el controlador
     public enum AccionMVC {
-        __BUSCADOR,
         __ASOCIAR,
         __ELIMINAR,
         __VOLVER,
@@ -64,8 +61,6 @@ public class Controlador_Historico implements ActionListener, MouseListener, Key
         //declara una acción y añade un escucha al evento producido por el componente
         this.asoc.labelTitulo.setOpaque(true);
         this.asoc.setLocationRelativeTo(null);
-        this.asoc.btnBuscar.setActionCommand("__BUSCADOR");
-        this.asoc.btnBuscar.addActionListener(this);
         //declara una acción y añade un escucha al evento producido por el componente
         this.asoc.btnAsociar.setActionCommand("__ASOCIAR");
         this.asoc.btnAsociar.addActionListener(this);
@@ -79,9 +74,6 @@ public class Controlador_Historico implements ActionListener, MouseListener, Key
         this.asoc.tablaFutbolistas.addMouseListener(this);
         // declaro el listener para la lista
         this.asoc.listaClubs.addMouseListener(this);
-        //declaro el modelo para la tabla y la lista
-        this.asoc.tablaFutbolistas.setModel(new DefaultTableModel());
-        // this.asoc.listaClubs.setModel(new DefaultListModel());
         //desactivo los campos que no quiero modificar
         this.asoc.txtIdClub.setEnabled(false);
         this.asoc.txtIdFut.setEnabled(false);
@@ -94,30 +86,27 @@ public class Controlador_Historico implements ActionListener, MouseListener, Key
         // oculto los campos
         this.asoc.txtIdFut.setVisible(false);
         this.asoc.txtIdClub.setVisible(false);
-        
+        //asigno las escucha de teclado
         this.asoc.txtFiltroFut.addKeyListener(this);
         this.asoc.txtTemporada.addKeyListener(this);
-
+        //obtiene del modelo los registros en un DefaultTableModel y lo asigna en la vista
+        this.asoc.tablaFutbolistas.setModel(this.mfutb.getTablaFutbolistas());
+        TableColumnModel tCol = this.asoc.tablaFutbolistas.getColumnModel();
+        tCol.removeColumn(tCol.getColumn(tCol.getColumnIndex("Id")));
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
 
         switch (Controlador_Historico.AccionMVC.valueOf(ae.getActionCommand())) {
-            case __BUSCADOR:
-                //obtiene del modelo los registros en un DefaultTableModel y lo asigna en la vista
-                this.asoc.tablaFutbolistas.setModel(this.mfutb.getTablaFutbolistas());
-                TableColumnModel tCol = this.asoc.tablaFutbolistas.getColumnModel();
-                tCol.removeColumn(tCol.getColumn(tCol.getColumnIndex("Id")));
-                break;
 
             case __ASOCIAR:
                 if (this.asoc.txtTemporada.getText().length() == 0
                         || this.asoc.txtIdFut.getText().length() == 0
                         || this.asoc.txtIdClub.getText().length() == 0) {
-                    JOptionPane.showMessageDialog(asoc, "Error: Campos vacios.");
+                    JOptionPane.showMessageDialog(asoc, "Error: Campos vacíos.");
                 } else {
-                    respuesta = JOptionPane.showConfirmDialog(null, "Desea crear la asociacion");
+                    respuesta = JOptionPane.showConfirmDialog(null, "Desea crear la asociaciín");
                     if (respuesta == 0) {
                         //asignamos los valores al objeto
                         hist.setId_club(Integer.parseInt(this.asoc.txtIdClub.getText()));
@@ -127,10 +116,10 @@ public class Controlador_Historico implements ActionListener, MouseListener, Key
                         if (this.mHisto.NuevoHistorico(hist)) {
                             //se realiza la asociacion de un futbolista a un club, en una determinada temporada
                             this.asoc.tablaFutbolistas.setModel(this.mfutb.getTablaFutbolistas());
-                            tCol = this.asoc.tablaFutbolistas.getColumnModel();
+                            TableColumnModel tCol = this.asoc.tablaFutbolistas.getColumnModel();
                             tCol.removeColumn(tCol.getColumn(tCol.getColumnIndex("Id")));
                             limpiar();
-                            JOptionPane.showMessageDialog(asoc, "Exito: Nuevo registro agregado.");
+                            JOptionPane.showMessageDialog(asoc, "Éxito: Nuevo registro agregado.");
                         } else {
                             JOptionPane.showMessageDialog(asoc, "Error: Datos mal introducidos.");
                         }
@@ -192,41 +181,42 @@ public class Controlador_Historico implements ActionListener, MouseListener, Key
     public void mouseExited(MouseEvent me) {
     }
 
-    
     int limitetemporada = 4;
-    TableRowSorter trs=null;
+    TableRowSorter trs = null;
+
     @Override
     public void keyTyped(KeyEvent ke) {
-        if (ke.getSource()==this.asoc.txtFiltroFut) {
+        if (ke.getSource() == this.asoc.txtFiltroFut) {
             //creo un rowsorter con el modelo de la tabla
-        trs = new TableRowSorter(this.asoc.tablaFutbolistas.getModel());
-        //le asigno ese row sorter a la tabla
-        this.asoc.tablaFutbolistas.setRowSorter(trs); 
+            trs = new TableRowSorter(this.asoc.tablaFutbolistas.getModel());
+            //le asigno ese row sorter a la tabla
+            this.asoc.tablaFutbolistas.setRowSorter(trs);
         }
-        
-        if (ke.getSource()==this.asoc.txtTemporada) {
-            if (this.asoc.txtTemporada.getText().length() == limitetemporada) {
+
+        if (ke.getSource() == this.asoc.txtTemporada) {
+            if (Character.isLetter(ke.getKeyChar())
+                    || this.asoc.txtTemporada.getText().length() == limitetemporada) {
                 ke.consume();
             }
         }
-        
+
     }
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        
+
     }
 
     @Override
     public void keyReleased(KeyEvent ke) {
         //le damos el source solo a este campo de texto
-        if (ke.getSource()==this.asoc.txtFiltroFut) {
-        //realizo el filtro de la columna deseada
-        trs.setRowFilter(RowFilter.regexFilter("(?i)"+this.asoc.txtFiltroFut.getText(), 2));
+        if (ke.getSource() == this.asoc.txtFiltroFut) {
+            //realizo el filtro de la columna deseada
+            trs.setRowFilter(RowFilter.regexFilter("(?i)" + this.asoc.txtFiltroFut.getText(), 1, 2, 3, 4, 5));
         }
-       
+
     }
-    
+
     /**
      * Metodo para vaciar los campos
      */

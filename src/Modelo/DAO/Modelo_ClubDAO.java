@@ -23,7 +23,7 @@ public class Modelo_ClubDAO extends Conexion {
 
     /**
      * Metodo que genera la tabla de los cubles
-     * @return tablemodel
+     * @return tablemodel Tabla clubs
      */
     public DefaultTableModel getTablaClub() {
         DefaultTableModel tablemodel = new DefaultTableModel();       
@@ -66,7 +66,7 @@ public class Modelo_ClubDAO extends Conexion {
     /**
      * Metodo para generar la tabla personalizada
      * @param nombre Nombre del futbolista
-     * @return tablemodel
+     * @return tablemodel Tabla personalizada de los clubs
      */
     public DefaultTableModel getTablaClubPersonalizada(String nombre) {
         DefaultTableModel tablemodel = new DefaultTableModel();
@@ -212,7 +212,7 @@ public class Modelo_ClubDAO extends Conexion {
      */
     public DefaultComboBoxModel llenarCombo () {
         DefaultComboBoxModel comboClub = new DefaultComboBoxModel();
-        comboClub.addElement("Seleccione una futbolista");
+        comboClub.addElement("Seleccione un futbolista");
         
         ResultSet res = this.consulta("SELECT * FROM Futbolistas");
         
@@ -243,7 +243,7 @@ public class Modelo_ClubDAO extends Conexion {
     
     /**
      * Metodo para conseguir la ID que usaremos en la lista de clubes
-     * @param nombreclub
+     * @param nombreclub Nombre del club
      * @return r El id del club
      */
     public int getIdClub (String nombreclub) {

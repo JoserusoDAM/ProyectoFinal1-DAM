@@ -22,10 +22,8 @@ public class Modelo_HistoricoDAO  extends Conexion{
     /**
      * Metodo para añadir un registro historico
      *
-     * @param id_club
-     * @param id_futbolista
-     * @param temporada
-     * @return
+     * @param hist Objeto historico
+     * @return true/false
      */
     public boolean NuevoHistorico(Historico hist) {
         if (validarTemporada(hist.getTemporada())) {
@@ -49,7 +47,7 @@ public class Modelo_HistoricoDAO  extends Conexion{
     /**
      * Metodo para eliminar un registro Historico
      *
-     * @param Historico Historico
+     * @param hist Historico
      * @return true/false
      */
     public boolean EliminarHistorico(Historico hist) {

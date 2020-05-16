@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.table.DefaultTableModel;
 import java.awt.print.PrinterException;
 import java.text.MessageFormat;
 import java.util.logging.Level;
@@ -102,15 +101,12 @@ public class Controlador_Club implements ActionListener, MouseListener, KeyListe
         this.club.btnPdf.addActionListener(this);
         //añade un escucha al evento producido por el componente
         this.club.tablaClub.addMouseListener(this);
-        // asigna un modelo a la tabla
-        this.club.tablaClub.setModel(new DefaultTableModel());
         //ponemos el panel centrado
         this.club.setLocationRelativeTo(null);
         //bloqueamos en campo id para que no se pueda rellenar
         this.club.txtId.setEnabled(false);
         //ponemos opacos los titulos para la interfaz
         this.club.labelTituloClub.setOpaque(true);
-
         this.club.labelConsulta.setOpaque(true);
         //asignamos un icono a la vista
         this.club.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/logo_lfp.png")).getImage());
@@ -127,6 +123,11 @@ public class Controlador_Club implements ActionListener, MouseListener, KeyListe
         this.club.txtNombre.addKeyListener(this);
         this.club.txtCampo.addKeyListener(this);
         this.club.txtFecha.addKeyListener(this);
+        //precargo la tabla de clubes
+        this.club.tablaClub.setModel(this.mclub.getTablaClub());
+        // eliminamos la colunma de la id
+        TableColumnModel tCol = this.club.tablaClub.getColumnModel();
+        tCol.removeColumn(tCol.getColumn(tCol.getColumnIndex("Id")));
     }
 
     @Override
@@ -144,7 +145,7 @@ public class Controlador_Club implements ActionListener, MouseListener, KeyListe
             case __NUEVO_CLUB:
                 //comprobamos que los campos no esten vacios
                 if (camposVacios()) {
-                    JOptionPane.showMessageDialog(club, "Error: Campos vacios.");
+                    JOptionPane.showMessageDialog(club, "Error: Campos vacíos.");
                 } else {
                     // preguntamos confirmacion previa
                     respuesta = JOptionPane.showConfirmDialog(null, "Desea insertar al club");
@@ -158,7 +159,7 @@ public class Controlador_Club implements ActionListener, MouseListener, KeyListe
                             this.club.tablaClub.setModel(this.mclub.getTablaClub());
                             tCol = this.club.tablaClub.getColumnModel();
                             tCol.removeColumn(tCol.getColumn(tCol.getColumnIndex("Id")));
-                            JOptionPane.showMessageDialog(club, "Exito: Nuevo registro agregado.");
+                            JOptionPane.showMessageDialog(club, "Éxito: Nuevo registro agregado.");
                             limpiar();
                         } else //ocurrio un error
                         {
@@ -174,7 +175,7 @@ public class Controlador_Club implements ActionListener, MouseListener, KeyListe
                 if (filasel != -1) {
                     // comprobamos que los campos no esten vacios
                     if (camposVacios()) {
-                        JOptionPane.showMessageDialog(club, "Error: Campos vacios.");
+                        JOptionPane.showMessageDialog(club, "Error: Campos vacíos.");
                     } else {
                         respuesta = JOptionPane.showConfirmDialog(null, "Desea eliminar el club");
                         if (respuesta == 0) {
@@ -186,7 +187,7 @@ public class Controlador_Club implements ActionListener, MouseListener, KeyListe
                                 this.club.tablaClub.setModel(this.mclub.getTablaClub());
                                 tCol = this.club.tablaClub.getColumnModel();
                                 tCol.removeColumn(tCol.getColumn(tCol.getColumnIndex("Id")));
-                                JOptionPane.showMessageDialog(club, "Exito: Registro eliminado.");
+                                JOptionPane.showMessageDialog(club, "Éxito: Registro eliminado.");
                                 limpiar();
                             }
                         }
@@ -202,7 +203,7 @@ public class Controlador_Club implements ActionListener, MouseListener, KeyListe
                 if (filasel != -1) {
                     //se comprueban que los campos no esten vacios
                     if (camposVacios()) {
-                        JOptionPane.showMessageDialog(club, "Error: Campos vacios.");
+                        JOptionPane.showMessageDialog(club, "Error: Campos vacíos.");
                     } else {
                         respuesta = JOptionPane.showConfirmDialog(null, "Desea modificar los datos del club");
                         if (respuesta == 0) {
@@ -216,7 +217,7 @@ public class Controlador_Club implements ActionListener, MouseListener, KeyListe
                                 this.club.tablaClub.setModel(this.mclub.getTablaClub());
                                 tCol = this.club.tablaClub.getColumnModel();
                                 tCol.removeColumn(tCol.getColumn(tCol.getColumnIndex("Id")));
-                                JOptionPane.showMessageDialog(club, "Exito: Nuevo registro modificado.");
+                                JOptionPane.showMessageDialog(club, "Éxito: Nuevo registro modificado.");
                                 limpiar();
                             } else //ocurrio un error
                             {
@@ -305,56 +306,55 @@ public class Controlador_Club implements ActionListener, MouseListener, KeyListe
     public void mouseExited(MouseEvent me) {
 
     }
-    
+
     int limitefecha = 4;
-    int limiteTexto = 30;
-    TableRowSorter trs=null;
+    int limiteTexto = 45;
+    TableRowSorter trs = null;
+
     @Override
     public void keyTyped(KeyEvent ke) {
-            
-        if (ke.getSource()==this.club.txtFiltro) {
-        //creo un rowsorter con el modelo de la tabla
-        trs = new TableRowSorter(this.club.tablaClub.getModel());
-        //le asigno ese row sorter a la tabla
-        this.club.tablaClub.setRowSorter(trs); 
+
+        if (ke.getSource() == this.club.txtFiltro) {
+            //creo un rowsorter con el modelo de la tabla
+            trs = new TableRowSorter(this.club.tablaClub.getModel());
+            //le asigno ese row sorter a la tabla
+            this.club.tablaClub.setRowSorter(trs);
         }
-        
-        if (ke.getSource()==this.club.txtNombre) {
-             if (this.club.txtNombre.getText().length() == limiteTexto) {
+
+        if (ke.getSource() == this.club.txtNombre) {
+            if (this.club.txtNombre.getText().length() == limiteTexto) {
                 ke.consume();
             }
         }
-        
-        if (ke.getSource()==this.club.txtCampo) {
-             if (this.club.txtCampo.getText().length() == limiteTexto) {
+
+        if (ke.getSource() == this.club.txtCampo) {
+            if (this.club.txtCampo.getText().length() == limiteTexto) {
                 ke.consume();
             }
         }
-        
-        if (ke.getSource()==this.club.txtFecha) {
-             if (this.club.txtFecha.getText().length() == limitefecha) {
+
+        if (ke.getSource() == this.club.txtFecha) {
+            if (Character.isLetter(ke.getKeyChar()) || this.club.txtFecha.getText().length() == limitefecha) {
                 ke.consume();
             }
         }
-        
-        
+
     }
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        
+
     }
 
     @Override
     public void keyReleased(KeyEvent ke) {
         //asigno el source solo a ese campo de texto
-        if (ke.getSource()==this.club.txtFiltro) {
-        //realizo el filtro de la columna deseada
-        trs.setRowFilter(RowFilter.regexFilter("(?i)"+this.club.txtFiltro.getText(), 1));
+        if (ke.getSource() == this.club.txtFiltro) {
+            //realizo el filtro de la columna deseada
+            trs.setRowFilter(RowFilter.regexFilter("(?i)" + this.club.txtFiltro.getText(), 1, 2, 3));
         }
     }
-    
-    
+
     /**
      * Metodo para vaciar los campos
      */
@@ -372,11 +372,9 @@ public class Controlador_Club implements ActionListener, MouseListener, KeyListe
      * @return true/false
      */
     public boolean camposVacios() {
-        return (this.club.txtId.getText().length() == 0
-                || this.club.txtNombre.getText().length() == 0
+        return (this.club.txtNombre.getText().length() == 0
                 || this.club.txtFecha.getText().length() == 0
                 || this.club.txtCampo.getText().length() == 0
-                || this.club.txtId.getText().equals("null")
                 || this.club.txtNombre.getText().equals("null")
                 || this.club.txtFecha.getText().equals("null")
                 || this.club.txtCampo.getText().equals("null"));

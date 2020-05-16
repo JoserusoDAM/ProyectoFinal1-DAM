@@ -24,7 +24,6 @@ import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 
@@ -104,7 +103,6 @@ public class Controlador_Futbolista implements ActionListener, MouseListener, Ke
         this.futb.btnEliminarAsoc.addActionListener(this);
         //declara una acción y añade un escucha al evento producido por el componente
         this.futb.tablaFutbolista.addMouseListener(this);
-        this.futb.tablaFutbolista.setModel(new DefaultTableModel());
         //ponemos el panel centrado
         this.futb.setLocationRelativeTo(null);
         //bloqueamos en campo id para que no se pueda rellenar
@@ -128,6 +126,13 @@ public class Controlador_Futbolista implements ActionListener, MouseListener, Ke
         this.futb.txtNombre.addKeyListener(this);
         this.futb.txtApellidos.addKeyListener(this);
         this.futb.txtNacionalidad.addKeyListener(this);
+        //deshabilito el campo de temporada
+        this.futb.txtTemporada.setEnabled(false);
+        //precargo la tabla
+        this.futb.tablaFutbolista.setModel(this.mfutb.getTablaFutbolistas());
+        //elimina la columna del id
+        TableColumnModel tCol = this.futb.tablaFutbolista.getColumnModel();
+        tCol.removeColumn(tCol.getColumn(tCol.getColumnIndex("Id")));
 
     }
 
@@ -146,7 +151,7 @@ public class Controlador_Futbolista implements ActionListener, MouseListener, Ke
             case __NUEVO_FUTBOLISTA:
                 //comprobamos que los campos no esten vacios
                 if (camposVacios()) {
-                    JOptionPane.showMessageDialog(futb, "Error: Campos vacios.");
+                    JOptionPane.showMessageDialog(futb, "Error: Campos vacíos.");
                 } else {
                     respuesta = JOptionPane.showConfirmDialog(null, "Desea insertar al futbolista");
                     if (respuesta == 0) {
@@ -161,7 +166,7 @@ public class Controlador_Futbolista implements ActionListener, MouseListener, Ke
                             this.futb.tablaFutbolista.setModel(this.mfutb.getTablaFutbolistas());
                             tCol = this.futb.tablaFutbolista.getColumnModel();
                             tCol.removeColumn(tCol.getColumn(tCol.getColumnIndex("Id")));
-                            JOptionPane.showMessageDialog(futb, "Exito: Nuevo registro agregado.");
+                            JOptionPane.showMessageDialog(futb, "Éxito: Nuevo registro agregado.");
                             limpiar();
                         } else //ocurrio un error
                         {
@@ -177,7 +182,7 @@ public class Controlador_Futbolista implements ActionListener, MouseListener, Ke
                 if (filasel != -1) {
                     //comprobamos que los campos no esten vacios
                     if (camposVacios()) {
-                        JOptionPane.showMessageDialog(futb, "Error: Campos vacios.");
+                        JOptionPane.showMessageDialog(futb, "Error: Campos vacíos.");
                     } else {
                         respuesta = JOptionPane.showConfirmDialog(null, "Desea eliminar al futbolista");
                         if (respuesta == 0) {
@@ -188,7 +193,7 @@ public class Controlador_Futbolista implements ActionListener, MouseListener, Ke
                                 this.futb.tablaFutbolista.setModel(this.mfutb.getTablaFutbolistas());
                                 tCol = this.futb.tablaFutbolista.getColumnModel();
                                 tCol.removeColumn(tCol.getColumn(tCol.getColumnIndex("Id")));
-                                JOptionPane.showMessageDialog(futb, "Exito: Registro eliminado.");
+                                JOptionPane.showMessageDialog(futb, "Éxito: Registro eliminado.");
                                 limpiar();
                             }
                         }
@@ -205,7 +210,7 @@ public class Controlador_Futbolista implements ActionListener, MouseListener, Ke
                 if (filasel != -1) {
                     // se verifica que ningun campo este vacio
                     if (camposVacios()) {
-                        JOptionPane.showMessageDialog(futb, "Error: Campos vacios.");
+                        JOptionPane.showMessageDialog(futb, "Error: Campos vacíos.");
                     } else {
                         // se pide confirmacion para realizar el paso
                         respuesta = JOptionPane.showConfirmDialog(null, "Desea modificar al futbolista");
@@ -224,7 +229,7 @@ public class Controlador_Futbolista implements ActionListener, MouseListener, Ke
                                 // eliminamos la columna de la id ya que no queremos que se muestre
                                 tCol = this.futb.tablaFutbolista.getColumnModel();
                                 tCol.removeColumn(tCol.getColumn(tCol.getColumnIndex("Id")));
-                                JOptionPane.showMessageDialog(futb, "Exito: Nuevo registro modificado.");
+                                JOptionPane.showMessageDialog(futb, "Éxito: Nuevo registro modificado.");
                                 limpiar();
                             } else //ocurrio un error
                             {
@@ -280,9 +285,9 @@ public class Controlador_Futbolista implements ActionListener, MouseListener, Ke
                     //comprobamos que los campos no esten vacios
                     if (camposVacios() || this.futb.txtTemporada.getText().length() == 0
                             || this.futb.txtTemporada.getText().equals("null")) {
-                        JOptionPane.showMessageDialog(futb, "Error: Campos vacios.");
+                        JOptionPane.showMessageDialog(futb, "Error: Campos vacíos.");
                     } else {
-                        respuesta = JOptionPane.showConfirmDialog(null, "Desea eliminar la asociacion");
+                        respuesta = JOptionPane.showConfirmDialog(null, "Desea eliminar la asociación");
                         if (respuesta == 0) {
                             hist.setId_futbolista(Integer.parseInt(this.futb.txtId.getText()));
                             hist.setTemporada(Integer.parseInt(this.futb.txtTemporada.getText()));
@@ -291,7 +296,7 @@ public class Controlador_Futbolista implements ActionListener, MouseListener, Ke
                                 this.futb.tablaFutbolista.setModel(this.mfutb.getTablaFutbolistasPersonalizada(String.valueOf(this.futb.comboFutbolistas.getSelectedItem())));
                                 tCol = this.futb.tablaFutbolista.getColumnModel();
                                 tCol.removeColumn(tCol.getColumn(tCol.getColumnIndex("Id")));
-                                JOptionPane.showMessageDialog(futb, "Exito: Asociacion eliminada.");
+                                JOptionPane.showMessageDialog(futb, "Éxito: Asociación eliminada.");
                                 limpiar();
                             }
                         }
@@ -346,7 +351,7 @@ public class Controlador_Futbolista implements ActionListener, MouseListener, Ke
     //variables para limitar los campos de texto
     int limiteNif = 9;
     int limiteFecha = 10;
-    int limitetexto = 30;
+    int limitetexto = 45;
     TableRowSorter trs = null;
 
     @Override
@@ -367,28 +372,40 @@ public class Controlador_Futbolista implements ActionListener, MouseListener, Ke
         }
 
         if (ke.getSource() == this.futb.txtFechaNac) {
-            if (this.futb.txtFechaNac.getText().length() == limiteFecha) {
+            //fuerzo que no se pueda escribir numeros en el campo
+            if (Character.isLetter(ke.getKeyChar())
+                    || this.futb.txtFechaNac.getText().length() == limiteFecha) {
                 ke.consume();
             }
         }
 
         if (ke.getSource() == this.futb.txtNombre) {
-            if (this.futb.txtNombre.getText().length() == limitetexto) {
+            //fuerzo que no se pueda escribir numeros en el campo
+            if (!Character.isLetter(ke.getKeyChar())
+                    && !(ke.getKeyChar() == KeyEvent.VK_SPACE)
+                    && !(ke.getKeyChar() == KeyEvent.VK_BACK_SPACE)
+                    || this.futb.txtNombre.getText().length() == limitetexto) {
                 ke.consume();
             }
         }
 
         if (ke.getSource() == this.futb.txtApellidos) {
-            if (this.futb.txtApellidos.getText()
-                    .length() == limitetexto) {
+            //fuerzo que no se pueda escribir numeros en el campo
+            if (!Character.isLetter(ke.getKeyChar())
+                    && !(ke.getKeyChar() == KeyEvent.VK_SPACE)
+                    && !(ke.getKeyChar() == KeyEvent.VK_BACK_SPACE)
+                    || this.futb.txtApellidos.getText().length() == limitetexto) {
                 ke.consume();
             }
+        }
 
-            if (ke.getSource() == this.futb.txtNacionalidad) {
-                if (this.futb.txtNacionalidad.getText()
-                        .length() == limitetexto) {
-                    ke.consume();
-                }
+        if (ke.getSource() == this.futb.txtNacionalidad) {
+            //fuerzo que no se pueda escribir numeros en el campo
+            if (!Character.isLetter(ke.getKeyChar())
+                    && !(ke.getKeyChar() == KeyEvent.VK_SPACE)
+                    && !(ke.getKeyChar() == KeyEvent.VK_BACK_SPACE)
+                    || this.futb.txtNacionalidad.getText().length() == limitetexto) {
+                ke.consume();
             }
         }
     }
@@ -400,11 +417,11 @@ public class Controlador_Futbolista implements ActionListener, MouseListener, Ke
 
     @Override
     public void keyReleased(KeyEvent ke) {
-        if (ke.getSource()==this.futb.txtFiltro) {
+        if (ke.getSource() == this.futb.txtFiltro) {
             //realizo el filtro de la columna deseada
-            trs.setRowFilter(RowFilter.regexFilter("(?i)" + this.futb.txtFiltro.getText(), 2));
+            trs.setRowFilter(RowFilter.regexFilter("(?i)" + this.futb.txtFiltro.getText(), 1, 2, 3, 4, 5));
         }
-        
+
     }
 
     /**

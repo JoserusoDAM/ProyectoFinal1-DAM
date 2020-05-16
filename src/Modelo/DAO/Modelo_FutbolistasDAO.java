@@ -69,8 +69,8 @@ public class Modelo_FutbolistasDAO extends Conexion {
 
     /**
      * Metodo que genera una tabla pesonalizada a partir de un nombre dado
-     * @param nombre
-     * @return tablemodel
+     * @param nombre Nombre del club
+     * @return tablemodel Tabla personalizada 
      */
     public DefaultTableModel getTablaFutbolistasPersonalizada(String nombre) {
         DefaultTableModel tablemodel = new DefaultTableModel();
@@ -123,10 +123,7 @@ public class Modelo_FutbolistasDAO extends Conexion {
     public boolean NuevoFutbolista(Futbolistas fut) {
         //LLamamos previamente a los validadores
         if ((validarNif(fut.getNif())
-                && (validarFecha(fut.getFecha_nacimiento())
-                && (contieneSoloLetras(fut.getNombre())
-                && (contieneSoloLetras(fut.getApellidos())
-                && (contieneSoloLetras(fut.getNacionalidad()))))))) {
+                && (validarFecha(fut.getFecha_nacimiento())))) {
             try {
                 CallableStatement call = this.getConnection().prepareCall("{call insertFutbolista (?,?,?,?,?)}");
                 call.setString(1, fut.getNif());
@@ -174,10 +171,7 @@ public class Modelo_FutbolistasDAO extends Conexion {
     public boolean ModificarFutbolista(Futbolistas fut) {
         //LLamamos previamente a los validadores
         if ((validarNif(fut.getNif())
-                && (validarFecha(fut.getFecha_nacimiento())
-                && (contieneSoloLetras(fut.getNombre())
-                && (contieneSoloLetras(fut.getApellidos())
-                && (contieneSoloLetras(fut.getNacionalidad()))))))) {
+                && (validarFecha(fut.getFecha_nacimiento())))) {
             try {
                 CallableStatement call = this.getConnection().prepareCall("{call updateFutbolista (?,?,?,?,?,?)}");
                 call.setInt(1, fut.getId_futbolista());
@@ -260,7 +254,7 @@ public class Modelo_FutbolistasDAO extends Conexion {
      */
     public DefaultComboBoxModel llenarCombo() {
         DefaultComboBoxModel comboFut = new DefaultComboBoxModel();
-        comboFut.addElement("Seleccione una club");
+        comboFut.addElement("Seleccione un club");
         ResultSet res = this.consulta("SELECT * FROM Clubs");
         try {
             while (res.next()) {
@@ -272,21 +266,5 @@ public class Modelo_FutbolistasDAO extends Conexion {
             System.err.println(e.getMessage());
         }
         return comboFut;
-    }
-
-    /**
-     * Metodo para comprobar que la cadena de caracteres contiene numeros
-     *
-     * @param cadena
-     * @return
-     */
-    public static boolean contieneSoloLetras(String cadena) {
-        boolean flag = false;
-        for (int x = 0; x < cadena.length(); x++) {
-            char c = cadena.charAt(x);
-            // Si no está entre a y z, ni entre A y Z, ni es un espacio
-            flag = (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' ';           
-        }
-        return flag;
     }
 }
