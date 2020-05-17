@@ -1,4 +1,0 @@
-com.mysql.jdbc.Driver
-jdbc:mysql://jruso.salesianas.es/jruso_alumnos?useSSL=false
-JoseA
-dam561987**
