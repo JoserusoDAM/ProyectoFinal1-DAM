@@ -1,0 +1,4 @@
+JDBC_DRIVER = "com.mysql.jdbc.Driver";
+JDBC_URL = "jdbc:mysql://jruso.salesianas.es/jruso_lfp?useSSL=false";
+JDBC_USER = "JoseLFP";
+JDBC_PASS = "dam561987**";
